@@ -1,0 +1,15 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gemini logo - stylized G with orbiting elements -->
+  <circle cx="60" cy="60" r="50" fill="#f1f3f4" />
+  
+  <!-- Main G shape -->
+  <path d="M60 25C40.67 25 25 40.67 25 60C25 79.33 40.67 95 60 95C70.5 95 80 90.5 86.67 83.33" stroke="#4285f4" stroke-width="8" stroke-linecap="round" fill="none" />
+  
+  <!-- Orbiting elements -->
+  <circle cx="85" cy="40" r="8" fill="#ea4335" />
+  <circle cx="85" cy="80" r="8" fill="#34a853" />
+  <circle cx="35" cy="60" r="8" fill="#fbbc05" />
+  
+  <!-- Flash symbol -->
+  <path d="M60 45L50 65H60L55 85L75 60H62L70 45H60Z" fill="#4285f4" />
+</svg>

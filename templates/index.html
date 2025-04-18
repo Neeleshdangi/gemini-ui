@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gemini 2.0 Flash Live Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Hardware access permissions -->
+    <meta name="permissions-policy" content="camera=*, microphone=*, display-capture=*">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='assets/logo.svg') }}" alt="Gemini Logo" class="logo">
+                <h1>Gemini 2.0 Flash Live</h1>
+            </div>
+            <div class="api-key-container">
+                <input type="password" id="api-key-input" placeholder="Enter your Gemini API Key" aria-label="Gemini API Key">
+                <button id="connect-btn" aria-label="Connect to Gemini API">Connect</button>
+                <span id="connection-status" class="status disconnected">Disconnected</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="control-panel">
+                <div class="input-controls">
+                    <button id="text-btn" class="control-btn active" aria-label="Text Input Mode">
+                        <i class="fas fa-keyboard"></i> Text
+                    </button>
+                    <button id="audio-btn" class="control-btn" aria-label="Audio Input Mode">
+                        <i class="fas fa-microphone"></i> Audio
+                    </button>
+                    <button id="video-btn" class="control-btn" aria-label="Video Input Mode">
+                        <i class="fas fa-video"></i> Video
+                    </button>
+                    <button id="screen-btn" class="control-btn" aria-label="Screen Share Mode">
+                        <i class="fas fa-desktop"></i> Screen
+                    </button>
+                </div>
+            </div>
+
+            <div class="interaction-area">
+                <!-- Chat Interface -->
+                <div id="chat-container" class="panel">
+                    <div id="chat-messages" class="messages-container"></div>
+                    <div class="input-container">
+                        <textarea id="user-input" placeholder="Type your message here..." aria-label="Message input"></textarea>
+                        <button id="send-btn" aria-label="Send message">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Audio Interface -->
+                <div id="audio-container" class="panel hidden">
+                    <div class="audio-visualizer-container">
+                        <canvas id="audio-visualizer"></canvas>
+                    </div>
+                    <div class="audio-controls">
+                        <button id="mic-toggle" aria-label="Toggle microphone">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <div class="audio-status">
+                            <span id="audio-status-text">Microphone inactive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Video Interface -->
+                <div id="video-container" class="panel hidden">
+                    <div id="draggable-camera" class="draggable-window">
+                        <div class="draggable-header">
+                            <span class="camera-title">Camera Feed</span>
+                            <div class="camera-controls">
+                                <button id="minimize-camera" aria-label="Minimize camera">
+                                    <i class="fas fa-window-minimize"></i>
+                                </button>
+                                <button id="maximize-camera" aria-label="Maximize camera">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="camera-content">
+                            <video id="webcam-video" autoplay muted></video>
+                        </div>
+                    </div>
+                    <div class="video-controls">
+                        <button id="webcam-toggle" aria-label="Toggle webcam">
+                            <i class="fas fa-video"></i>
+                        </button>
+                        <div class="video-status">
+                            <span id="video-status-text">Camera inactive</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Screen Share Interface -->
+                <div id="screen-container" class="panel hidden">
+                    <div id="draggable-screen" class="draggable-window">
+                        <div class="draggable-header">
+                            <span class="screen-title">Screen Share</span>
+                            <div class="screen-controls-header">
+                                <button id="minimize-screen" aria-label="Minimize screen">
+                                    <i class="fas fa-window-minimize"></i>
+                                </button>
+                                <button id="maximize-screen" aria-label="Maximize screen">
+                                    <i class="fas fa-expand"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="screen-content">
+                            <video id="screen-video" autoplay muted></video>
+                        </div>
+                    </div>
+                    <div class="screen-controls">
+                        <button id="screen-toggle" aria-label="Toggle screen sharing">
+                            <i class="fas fa-desktop"></i>
+                        </button>
+                        <div class="screen-status">
+                            <span id="screen-status-text">Screen sharing inactive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logs Panel -->
+            <div class="logs-panel">
+                <div class="logs-header">
+                    <h3>System Logs & Function Calls</h3>
+                    <button id="clear-logs" aria-label="Clear logs">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <div id="logs-container"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/websocket.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/chat.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/audio.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/video.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/screen.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
